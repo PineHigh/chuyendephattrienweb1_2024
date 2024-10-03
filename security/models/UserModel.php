@@ -50,38 +50,41 @@ class UserModel extends BaseModel {
      */
     public function updateUser($input) {
         try {
+            $input['name'] = preg_replace('/\s+/', ' ', trim($input['name']));
+            $input['password'] = preg_replace('/\s+/', ' ', trim($input['password']));
+    
             $this->validateName($input['name']);
-            
             $this->validatePassword($input['password']);
     
             $sql = 'UPDATE users SET 
-                     name = "' . mysqli_real_escape_string(self::$_connection, $input['name']) .'", 
-                     password="'. md5($input['password']) .'"
-                    WHERE id = ' . intval($input['id']); 
+                     name = "' . mysqli_real_escape_string(self::$_connection, $input['name']) . '", 
+                     password="' . md5($input['password']) . '"
+                    WHERE id = ' . intval($input['id']);
     
             $user = $this->update($sql);
             return $user;
     
         } catch (Exception $e) {
-            return ['error' => $e->getMessage()]; 
+            return ['error' => $e->getMessage()];
         }
     }
     
     private function validateName($name) {
         if (empty($name)) {
-            throw new Exception("Name is required."); 
+            throw new Exception("Name is required.");
         } elseif (!preg_match('/^[A-Za-z0-9]{5,15}$/', $name)) {
-            throw new Exception("Tên không được bỏ trống, phải nhiều hơn 5 kí tự và không quá 15."); 
+            throw new Exception("Tên không được bỏ trống, phải nhiều hơn 5 kí tự và không quá 15.");
         }
     }
     
     private function validatePassword($password) {
         if (empty($password)) {
-            throw new Exception("Password is required."); 
+            throw new Exception("Password is required.");
         } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*()])[A-Za-z\d~!@#$%^&*()]{5,10}$/', $password)) {
-            throw new Exception("Mật khẩu không được bỏ trống, phải nhiều hơn 5 kí tự và không quá 10, bắt buộc phải có chữ HOA và kí tự đặc biệt."); 
+            throw new Exception("Mật khẩu không được bỏ trống, phải nhiều hơn 5 kí tự và không quá 10, bắt buộc phải có chữ HOA và kí tự đặc biệt.");
         }
     }
+    
     
 
     /**
