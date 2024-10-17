@@ -1,0 +1,95 @@
+@primary-color: #333;
+@secondary-color: #666;
+@box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+@bg-color:#dddddd;
+@img-bg-color:#fff;
+
+.news-section {
+    padding: 60px 20px;
+    text-align: center;
+
+    .header {
+        margin-bottom: 40px;
+
+        .icon-img{
+            position: relative;
+            
+            img{
+                background-color: @img-bg-color;
+                position: relative;
+                padding: 0 5px;
+                z-index: 1;
+            }  
+
+            .line_header{
+                background-color: @bg-color;
+                width: 10%;
+                height: 1px;
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                position: absolute;
+                z-index: 0;
+            }
+        }
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: @primary-color;
+        }
+
+        p {
+            font-size: 18px;
+            color: @secondary-color;
+        }
+    }
+
+    .news-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .news-item {
+            background-color: #fff;
+            box-shadow: @box-shadow;
+            overflow: hidden;
+            text-align: left;
+            width: 390px;
+            margin: 10px;
+            transition: box-shadow 0.3s ease;
+
+            &:hover {
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            }
+
+            .news-image {
+                margin-bottom: 15px;
+
+                img {
+                    width: 390px;
+                    height: 235px;
+                }
+            }
+
+            .item {
+                padding: 10px;
+                text-align: center;
+                h3 {
+                    font-size: 23px;
+                    color: @primary-color;
+                    margin-bottom: 15px;
+                    font-weight: 300;
+                    line-height: 1.4;
+                }
+
+                p {
+                    font-size: 16px;
+                    color: @secondary-color;
+                    line-height: 1.6;
+                }
+            }
+        }
+    }
+}
